@@ -9,12 +9,14 @@ COPY requirements.txt /workspace/
 RUN set -ex ; \
     apk add --no-cache --virtual .BUILD_DEPS \
         gcc \
+    ; \
+    apk add --no-cache \
         musl-dev \
         python-dev \
         mariadb-dev \
     ; \
     pip install -U pip; \
-    pip install -r requirements.txt;
-    # apk del .BUILD_DEPS; 
+    pip install -r requirements.txt; \
+    apk del .BUILD_DEPS;
 
 COPY . /workspace
