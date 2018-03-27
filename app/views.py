@@ -2,6 +2,10 @@
 from django.http import JsonResponse
 from django.views.generic import View
 
+from .models import *
+
+import datetime
+
 
 class JsonView(View):
     def json_ok(self, data = None, **response_kwargs):
@@ -20,4 +24,10 @@ class JsonView(View):
 class HelloView(JsonView):
 
     def get(self, request, *args, **kwargs):
-        return self.json_ok('Hello World')
+        test = Test.objects.filter().first()
+        if not test:
+            test = Test.objects.create(
+                create_time = datetime.datetime.now(),
+                update_time = datetime.datetime.now()
+            )
+        return self.json_ok('Hello World:%s' % test.id)
