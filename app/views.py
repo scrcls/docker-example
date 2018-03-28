@@ -2,6 +2,7 @@
 from django.http import JsonResponse
 from django.views.generic import View
 
+from common.rdb import get_redis_client
 from .models import *
 
 import datetime
@@ -31,3 +32,13 @@ class HelloView(JsonView):
                 update_time = datetime.datetime.now()
             )
         return self.json_ok('Hello World:%s' % test.id)
+
+
+class CacheView(JsonView):
+    
+    KEY = 'CacheView'
+
+    def get(self, request, *args, **kwargs):
+        client = get_redis_client()
+        result = client.incr(self.KEY) 
+        return self.json_ok('CacheView:%s' % result)

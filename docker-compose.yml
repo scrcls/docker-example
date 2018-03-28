@@ -11,6 +11,15 @@ services:
     volumes:
       - ${PWD}/var/lib/mysql:/var/lib/mysql
 
+  cache:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - ${PWD}/var/lib/redis:/data
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+       
   web:
     build: .
     restart: always
@@ -21,6 +30,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - cache
 
 volumes:
   db_data:
