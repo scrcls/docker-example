@@ -19,6 +19,7 @@ COPY requirements.txt $HOMEDIR
 RUN set -ex ; \
     apk add --no-cache --virtual .BUILD_DEPS \
         gcc \
+        build-base \
     ; \
     apk add --no-cache \
         musl-dev \
@@ -28,7 +29,7 @@ RUN set -ex ; \
     ; \
     pip install -U pip; \
     pip install -r $HOMEDIR/requirements.txt; \
-    pip install -U uWSGI==2.0.17; \
+    pip install -U --no-cache-dir uWSGI==2.0.17; \
     apk del .BUILD_DEPS;
 
 WORKDIR $PROJECT_SRC
