@@ -19,18 +19,19 @@ COPY requirements.txt $HOMEDIR
 RUN set -ex ; \
     apk add --no-cache --virtual .BUILD_DEPS \
         gcc \
+        linux-headers \
         build-base \
-    ; \
-    apk add --no-cache \
         musl-dev \
         python-dev \
+    ; \
+    apk add --no-cache --virtual .RUN_DEPS \
         mariadb-dev \
-        linux-headers \
     ; \
     pip install -U pip; \
     pip install -r $HOMEDIR/requirements.txt; \
-    pip install -U --no-cache-dir uWSGI==2.0.17; \
-    apk del .BUILD_DEPS;
+    pip install uWSGI==2.0.13; \
+    apk del .BUILD_DEPS; \
+    rm -rf /var/cahce/apk/*;
 
 WORKDIR $PROJECT_SRC
 COPY ./src $PROJECT_SRC
@@ -39,6 +40,10 @@ COPY ./etc/cron.ini $PROJECT_ETC/cron.ini
 
 RUN set -ex; \
     crontab $PROJECT_ETC/cron.ini;
+
+VOLUME $PROJECT_SRC
+VOLUME $PROJECT_ETC
+VOLUME $PROJECT_VAR
 
 COPY ./etc/docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]

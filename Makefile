@@ -9,3 +9,6 @@ restart-web:
 
 recreate-web:
 	docker-compose up -d --no-deps --build web
+
+build:
+	docker build -t django:v1 .
