@@ -23,17 +23,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-            'stream': 'ext://sys.stdout',
-            'level': 'DEBUG',
-        },
-        'mail_admins': {
-            'level': 'ERROR',
-            'formatter': 'detail',
-            'class': 'common.logger.AsyncAdminEmailHandler',
-        },
         'system_handler': {
             'class': 'logging.FileHandler',
             'formatter': 'detail',
@@ -49,7 +38,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['system_handler', 'mail_admins'],
+            'handlers': ['system_handler'],
             'propagate': False,
             'level': 'ERROR',
         },
