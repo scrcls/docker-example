@@ -5,4 +5,5 @@ from .views import *
 
 urlpatterns = [
     url('^hello/$', HelloView.as_view(), name = 'hello_view'),
+    url('^cache/$', CacheView.as_view(), name = 'cache_view'),
 ]

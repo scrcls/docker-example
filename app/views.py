@@ -35,10 +35,10 @@ class HelloView(JsonView):
 
 
 class CacheView(JsonView):
-    
+
     KEY = 'CacheView'
 
     def get(self, request, *args, **kwargs):
         client = get_redis_client()
-        result = client.incr(self.KEY) 
-        return self.json_ok('CacheView:%s' % result)
+        result = client.incr(self.KEY)
+        return self.json_ok('NewCacheView:%s' % result)
