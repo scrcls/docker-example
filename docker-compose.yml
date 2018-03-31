@@ -19,11 +19,11 @@ services:
     ports:
       - "6379:6379"
     command: redis-server --appendonly yes
-       
+
   web:
     build: .
     restart: always
-    command: python manage.py runserver "0.0.0.0:8000"
+    command: python manage.py runserver "0.0.0.0:8000" --noreload
     volumes:
       - .:/workspace
     ports:
