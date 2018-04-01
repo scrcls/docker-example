@@ -23,11 +23,13 @@ services:
   web:
     build: .
     restart: always
-    command: python manage.py runserver "0.0.0.0:8000" --noreload
+    # command: python manage.py runserver "0.0.0.0:8080" --noreload
     volumes:
-      - .:/workspace
+      - ${PWD}/src:/home/test/src
+      - ${PWD}/var/run:/home/test/var/run
+      - ${PWD}/var/log:/home/test/var/log
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - db
       - cache
