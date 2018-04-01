@@ -88,7 +88,7 @@ DATABASES = {
 }
 
 
-# Redis配置
+# Redis
 REDIS_CONFIG = {
     'host': 'cache',
     'port': '6379',

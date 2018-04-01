@@ -26,12 +26,13 @@ class HelloView(JsonView):
 
     def get(self, request, *args, **kwargs):
         test = Test.objects.filter().first()
+        parameter = request.GET.get('parameter') or 'World'
         if not test:
             test = Test.objects.create(
                 create_time = datetime.datetime.now(),
                 update_time = datetime.datetime.now()
             )
-        return self.json_ok('Hello World:%s' % test.id)
+        return self.json_ok('Hello %s:%s' % (parameter, test.id))
 
 
 class CacheView(JsonView):
