@@ -6,6 +6,9 @@ from common.rdb import get_redis_client
 from .models import *
 
 import datetime
+import logging
+
+LOGGER = logging.getLogger('app')
 
 
 class JsonView(View):
@@ -32,6 +35,7 @@ class HelloView(JsonView):
                 create_time = datetime.datetime.now(),
                 update_time = datetime.datetime.now()
             )
+        LOGGER.info('HelloView parameter:%s test:%s', parameter, test.id)
         return self.json_ok('New Hello %s:%s' % (parameter, test.id))
 
 
