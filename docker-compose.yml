@@ -47,5 +47,16 @@ services:
       - db
       - cache
 
+  cron:
+    build: .
+    restart: always
+    volumes:
+      - ${PWD}/src:/home/test/src
+      - ${PWD}/var/log:/home/test/var/log
+    command: ["cron"]
+    depends_on:
+      - db
+      - cache
+
 volumes:
   uwsgi_socket:

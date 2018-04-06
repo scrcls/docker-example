@@ -11,7 +11,7 @@ cd $PROJECT_SRC
 if [ "$@" == "server" ]; then
     uwsgi --ini $PROJECT_ETC/uwsgi.ini
 elif [ "$@" == "cron" ]; then
-    cron -f
+    crond -f
 fi
 
 echo "$@"

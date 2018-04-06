@@ -35,6 +35,10 @@ RUN set -ex ; \
 WORKDIR $PROJECT_SRC
 COPY ./src $PROJECT_SRC
 COPY ./etc/uwsgi.ini $PROJECT_ETC/uwsgi.ini
+COPY ./etc/cron.ini $PROJECT_ETC/cron.ini
+
+RUN set -ex; \
+    crontab $PROJECT_ETC/cron.ini;
 
 COPY ./etc/docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
