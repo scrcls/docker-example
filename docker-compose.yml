@@ -20,19 +20,32 @@ services:
       - "6379:6379"
     command: redis-server --appendonly yes
 
+  proxy:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ${PWD}/etc/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ${PWD}/var/run:/var/run
+      # - "uwsgi_socket:/var/run"
+      - ${PWD}/var/log/nginx:/var/log/nginx
+    ports:
+      - "8000:80"
+    command: ["nginx", "-g", "daemon off;"]
+
   web:
     build: .
     restart: always
-    # command: python manage.py runserver "0.0.0.0:8080" --noreload
     volumes:
       - ${PWD}/src:/home/test/src
       - ${PWD}/var/run:/home/test/var/run
+      # - "uwsgi_socket:/home/test/var/run"
       - ${PWD}/var/log:/home/test/var/log
-    ports:
-      - "8080-8090:8080"
+    # ports:
+    #  - "8080-8090:8080"
+    # command: ["python", "manage.py", "runserver", "0.0.0.0:8080", "--noreload"]
     depends_on:
       - db
       - cache
 
 volumes:
-  db_data:
+  uwsgi_socket:
