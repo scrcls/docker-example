@@ -32,7 +32,7 @@ class HelloView(JsonView):
                 create_time = datetime.datetime.now(),
                 update_time = datetime.datetime.now()
             )
-        return self.json_ok('Hello %s:%s' % (parameter, test.id))
+        return self.json_ok('New Hello %s:%s' % (parameter, test.id))
 
 
 class CacheView(JsonView):
