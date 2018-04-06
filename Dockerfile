@@ -36,7 +36,11 @@ WORKDIR $PROJECT_SRC
 COPY ./src $PROJECT_SRC
 COPY ./etc/uwsgi.ini $PROJECT_ETC/uwsgi.ini
 
-EXPOSE 8080
+COPY ./etc/docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
 
+CMD ["server"]
+
+# EXPOSE 8080
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
-CMD ["uwsgi", "--ini", "/home/test/etc/uwsgi.ini"]
+
