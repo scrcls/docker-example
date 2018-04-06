@@ -9,4 +9,3 @@ restart-web:
 
 recreate-web:
 	docker-compose up -d --no-deps --build web
-	sudo chown vagrant:nginx var/run/*.sock
