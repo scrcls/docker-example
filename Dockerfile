@@ -45,6 +45,8 @@ VOLUME $PROJECT_SRC
 VOLUME $PROJECT_ETC
 VOLUME $PROJECT_VAR
 
+USER $USER
+
 COPY ./etc/docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 

@@ -58,5 +58,13 @@ services:
       - db
       - cache
 
+  task-worker:
+    build: .
+    image: django:v1
+    restart: always
+    command: ["celery"]
+    depends_on:
+      - cache
+
 volumes:
   uwsgi_socket:
