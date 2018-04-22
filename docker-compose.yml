@@ -32,6 +32,7 @@ services:
     command: ["nginx", "-g", "daemon off;"]
 
   web:
+    build: .
     image: django:v1
     restart: always
     volumes:
@@ -46,6 +47,7 @@ services:
       - cache
 
   cron:
+    build: .
     image: django:v1
     restart: always
     volumes:
