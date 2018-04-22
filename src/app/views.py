@@ -4,6 +4,7 @@ from django.views.generic import View
 
 from common.rdb import get_redis_client
 from .models import *
+from . import tasks
 
 import datetime
 import logging
@@ -40,10 +41,19 @@ class HelloView(JsonView):
 
 
 class CacheView(JsonView):
-
     KEY = 'CacheView'
 
     def get(self, request, *args, **kwargs):
         client = get_redis_client()
         result = client.incr(self.KEY)
         return self.json_ok('NewCacheView:%s' % result)
+
+
+class TaskView(JsonView):
+    KEY = 'TASK_NUM'
+
+    def get(self, request, *args, **kwargs):
+        tasks.incr_task_num.delay()
+        client = get_redis_client()
+        result = client.get(self.KEY)
+        return self.json_ok('TaskNum:%s' % result)

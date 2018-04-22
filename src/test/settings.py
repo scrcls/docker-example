@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nl+dwb7_%%rmb=t7%*6f)p)2n%k&0gq=0)k@xmvwv79h%fl$%h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -93,6 +93,16 @@ REDIS_CONFIG = {
     'host': 'cache',
     'port': '6379',
     'db': 0,
+}
+
+# Celery
+CELERY_CONFIG = {
+    'BROKER_URL': 'redis://cache:6379/11',
+    'CELERY_RESULT_BACKEND': 'redis://cache:6379/11',
+    'CELERY_EAGER_PROPAGATES_EXCEPTIONS': True,
+    'CELERY_ACCEPT_CONTENT': ['pickle', 'json'],
+    'CELERY_TASK_SERIALIZER': 'pickle',
+    'CELERY_RESULT_SERIALIZER': 'json',
 }
 
 # Password validation
