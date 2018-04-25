@@ -12,8 +12,8 @@ if [ "$@" == "server" ]; then
     uwsgi --ini $PROJECT_ETC/uwsgi.ini
 elif [ "$@" == "cron" ]; then
     crond -f
-elif [ "$@" == "celery"]; then
-    celery worker -A test
+elif [ "$@" == "celery" ]; then
+    celery worker -A test -l INFO
 fi
 
 echo "$@"
